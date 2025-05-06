@@ -45,7 +45,7 @@ module.exports = {
         return new Promise((resolve,reject) => {
             try {
               
-                    console.log("Socket==?",socket)
+                    console.log("validate Token==?",socket)
                 database.executeQuery(
                     storeProcudures.validateToken,[
                         socket.uniqueId,

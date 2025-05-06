@@ -2,10 +2,11 @@ const express = require("express");
 const path = require("path");
 const middleware = require('./api/middleware/middleware')
 require("dotenv").config();
-
+const cors = require("cors");
 const v1Routes = require("./api/routes/v1/v1");
 
 const app = express();
+app.use(cors());
 app.get('/favicon.ico', (req, res) => res.status(204).end());
 // Middleware
 app.use(express.json());

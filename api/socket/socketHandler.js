@@ -1,7 +1,7 @@
-const socketController = require("../controllers/v1/socketController");
+const socketController = require("../controllers/v2/socketController");
 
 const handleSocketConnection = (io, socket) => {
-    console.log(`User Connected: (Socket ID: ${socket.id})`);
+    console.log(`User Connected: (Socket ID: ${socket.user.id},"Token:"${io})`);
 
     // Delegate event handling to the controller
     socketController(io, socket);

@@ -9,7 +9,9 @@ const initializeSocket = (server) => {
     io.use(middleware.socketToken);
 
     io.on("connection", (socket) => {
+    
         const user = socket.user;
+        console.log("Connection",socket)
         if (!user) {
             console.log("Unauthorized socket connection attempt.");
             socket.disconnect(true);

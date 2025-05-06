@@ -7,6 +7,7 @@ exports.executeQuery = (sp,data,res,callback)=>{
             if(!err){
                 callback(null,result)
             }else{
+                console.log("SpName==?>",sp)
                 res.status(503).json({status:503,message:stringConstant.SOMETHINGWENTWRONG,data:err})
             }
         }) 

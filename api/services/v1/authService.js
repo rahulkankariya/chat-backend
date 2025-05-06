@@ -44,16 +44,16 @@ module.exports = {
         return new Promise((resolve,reject) => {
             try {
                
-                console.log("REq,es",req.body)
+       
                 database.executeQuery(
                     storeProcudures.login,[
                         req.body.email,
                     ],
                     res, function(err,rows){
-                        console.log("rows==>",rows)
+                        // console.log("rows==>",rows)
                         if(rows[0][0].res == 1){ // email  found 
                         let encryptPassword = commonHelper.decryptPassword(rows[1][0].password);
-                        console.log("Enc==?",encryptPassword)
+                        // console.log("Enc==?",encryptPassword)
                         if(encryptPassword == req.body.password){
                             database.executeQuery(
                                 storeProcudures.uuidUpdate,[

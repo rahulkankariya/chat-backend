@@ -68,7 +68,7 @@ module.exports = {
     
             jwt.verify(token, config.JWTKEY, async (err, decoded) => {
                 if (err) {
-                    console.warn("Socket authentication failed: Invalid token.", err);
+                    // console.warn("Socket authentication failed: Invalid token.", err);
                     return next(new Error("Invalid token"));
                 }
     
@@ -76,7 +76,7 @@ module.exports = {
     
                 // Validate token in the database
                 let userData = await commonHelper.validateSocketToken(decoded);
-    
+                console.log("USer",userData)
                 if (userData?.executed == 1) {
                     socket.user = decoded; // Attach user data to socket
                     // console.log("Socket authentication successful for user:", decoded);
