@@ -11,7 +11,7 @@ const initializeSocket = (server) => {
     io.on("connection", (socket) => {
     
         const user = socket.user;
-        console.log("Connection",socket)
+        // console.log("Connection",socket)
         if (!user) {
             console.log("Unauthorized socket connection attempt.");
             socket.disconnect(true);

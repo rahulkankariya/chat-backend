@@ -72,11 +72,11 @@ module.exports = {
                     return next(new Error("Invalid token"));
                 }
     
-                console.log("Token decoded successfully:", decoded);
+                // console.log("Token decoded successfully:", decoded);
     
                 // Validate token in the database
                 let userData = await commonHelper.validateSocketToken(decoded);
-                console.log("USer",userData)
+                // console.log("USer",userData)
                 if (userData?.executed == 1) {
                     socket.user = decoded; // Attach user data to socket
                     // console.log("Socket authentication successful for user:", decoded);
