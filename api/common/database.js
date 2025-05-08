@@ -7,7 +7,7 @@ exports.executeQuery = (sp,data,res,callback)=>{
             if(!err){
                 callback(null,result)
             }else{
-                console.log("SpName==?>",sp)
+                console.log("SpName==?>",sp,data)
                 res.status(503).json({status:503,message:stringConstant.SOMETHINGWENTWRONG,data:err})
             }
         }) 
@@ -17,3 +17,14 @@ exports.executeQuery = (sp,data,res,callback)=>{
     }
   
 }
+exports.newExecuteQuery = async (sp, data) => {
+    try {
+      const [result] = await connection.promise().query(sp, data);
+      console.log("Reuslt==?",result,sp,data)
+      return result;
+    } catch (error) {
+        console.log("Errr==?",error)
+      console.error(`Error executing query [${sp}] with data [${data}]:`, error);
+      throw error; // Re-throw error to be handled by the caller
+    }
+  };

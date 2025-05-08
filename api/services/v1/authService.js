@@ -14,7 +14,8 @@ module.exports = {
                         req.body.firstName,
                         req.body.lastName,
                         req.body.email,
-                        encryptPassword
+                        encryptPassword,
+                        req.body.avtarUrl ? req.body.avtarUrl :""
                     ],
                     res, function(err,rows){
                      
