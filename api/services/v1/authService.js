@@ -73,7 +73,7 @@ module.exports = {
                                         }
                                         resolve({ executed: 1, data: userDetails });
                                     }else{
-
+                                        resolve({ executed: 0, data: {} });
                                     }
                                  
                                 })
