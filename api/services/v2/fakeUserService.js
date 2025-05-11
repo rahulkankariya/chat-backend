@@ -1,7 +1,7 @@
 const { faker } = require('@faker-js/faker');
 const commonHelper = require('../../common/commonHelper');
 const database = require('../../common/database'); // Adjust path if needed
-
+const storeProcdure = require('../../common/storeProcdure')
 function createSimpleFakeUser() {
   const firstName = faker.person.firstName();
   const lastName = faker.person.lastName();
@@ -37,7 +37,7 @@ async function insertFakeUsers(count = 10) {
     console.log("Params==>", ...params); // Debugging the params
 
     try {
-      const rows = await database.newExecuteQuery('call signup(?, ?, ?, ?, ?)', params);
+      const rows = await database.newExecuteQuery(storeProcdure.signup, params);
 
       // Check if user was created or skipped based on the result
       if (rows[0][0].res === 1) {

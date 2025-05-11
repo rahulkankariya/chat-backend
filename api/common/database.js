@@ -20,7 +20,7 @@ exports.executeQuery = (sp,data,res,callback)=>{
 exports.newExecuteQuery = async (sp, data) => {
     try {
       const [result] = await connection.promise().query(sp, data);
-      console.log("Reuslt==?",result,sp,data)
+    //   console.log("Reuslt==?",result,sp,data)
       return result;
     } catch (error) {
         console.log("Errr==?",error)
