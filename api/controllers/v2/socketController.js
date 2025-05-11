@@ -1,4 +1,4 @@
-const { emitEvent, updateUserStatus, fetchChatUserList } = require('../../events/eventManager'); // Import the centralized functions
+const { emitEvent, updateUserStatus, fetchChatUserList,sendMessage,individualMessageList } = require('../../events/eventManager'); // Import the centralized functions
 
 const socketController = (io, socket) => {
   const user = socket.user;
@@ -11,6 +11,34 @@ const socketController = (io, socket) => {
 
   // 📜 Fetch Chat User List
   socket.on("chat-user-list", (pageIndex, pageSize) => fetchChatUserList(user, pageIndex, pageSize, socket));
+
+  socket.on('send-message', async (payload) => {
+    const {
+      reciverId, chatType, message, mediaType, mediaUrl
+    } = payload;
+    const senderId = user.id
+    try {
+      // Call the sendMessage function from the event manager
+      await sendMessage(senderId, reciverId, chatType, message, mediaType, mediaUrl, socket);
+
+    } catch (error) {
+      console.error('Error in send-message event handler:', error);
+    }
+  });
+  socket.on('individual-message-list',async (payload) => {
+    const {
+      reciverId, pageIndex,pageSize
+    } = payload;
+    const senderId = user.id
+    try {
+      // Call the sendMessage function from the event manager
+      await individualMessageList(senderId,reciverId, pageIndex,pageSize, socket);
+
+    } catch (error) {
+      console.error('Error in send-message event handler:', error);
+    }
+  });
+
 };
 
 module.exports = socketController;

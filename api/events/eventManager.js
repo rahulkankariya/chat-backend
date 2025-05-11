@@ -28,9 +28,36 @@ const fetchChatUserList = async (user, pageIndex, pageSize, socket) => {
   }
 };
 
+const sendMessage = async (senderId, reciverId, chatType, message, mediaType, mediaUrl,socket) => {
+  try {
+    // Call userService to send the message
+    const result = await userService.sendMessage(senderId, reciverId, chatType, message, mediaType, mediaUrl);
+
+    emitEvent(socket,'send-message', { executed: 1, data: result });
+
+  } catch (error) {
+    console.error('Error in sendMessage (Event Manager):', error);
+    socket.emit('send-message', { executed: 0, error });
+  }
+};
+
+const individualMessageList = async (senderId, reciverId, pageIndex,pageSize, socket) => {
+  try {
+    console.log("EventManger==?",senderId, reciverId, pageIndex,pageSize)
+    const rows = await userService.individualMessageList(senderId, reciverId, pageIndex,pageSize);
+    console.log("Mesage==>",rows)
+    emitEvent(socket, "individual-message-list", { executed: 1, data: rows });
+  } catch (error) {
+    console.error("Error fetching chat user list:", error);
+    emitEvent(socket, "individual-message-list", { executed: 0, data: [] });
+  }
+};
+
 // Expose the functions to be used in the socket controller
 module.exports = {
   emitEvent,
   updateUserStatus,
   fetchChatUserList,
+  sendMessage,
+  individualMessageList
 };

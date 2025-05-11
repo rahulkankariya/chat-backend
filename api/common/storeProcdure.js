@@ -8,6 +8,8 @@ module.exports = {
     activeUserList:"call activeUserList();",
     userList:"call userList(?,?,?);",
     messagelist:"call messagelist(?,?,?,?);",
-    insertChatMessage:"call insertChatMessage(?,?,?);"
+    insertChatMessage:"call insertChatMessage(?,?,?);",
+    sendChatMessage:"call sendChatMessage(?,?,?,?,?,?);",
+    individualMessageList:"call individualMessageList(?,?,?,?);"
     
 }
