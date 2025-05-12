@@ -14,12 +14,12 @@ const socketController = (io, socket) => {
 
   socket.on('send-message', async (payload) => {
     const {
-      reciverId, chatType, message, mediaType, mediaUrl
+      receiverId, chatType, message, mediaType, mediaUrl
     } = payload;
     const senderId = user.id
     try {
       // Call the sendMessage function from the event manager
-      await sendMessage(senderId, reciverId, chatType, message, mediaType, mediaUrl, socket,io);
+      await sendMessage(senderId, receiverId, chatType, message, mediaType, mediaUrl, socket,io);
 
     } catch (error) {
       console.error('Error in send-message event handler:', error);
@@ -27,12 +27,13 @@ const socketController = (io, socket) => {
   });
   socket.on('individual-message-list',async (payload) => {
     const {
-      reciverId, pageIndex,pageSize
+      receiverId, pageIndex,pageSize
     } = payload;
     const senderId = user.id
     try {
+      console.log("Payload==?",payload)
       // Call the sendMessage function from the event manager
-      await individualMessageList(senderId,reciverId, pageIndex,pageSize, socket);
+      await individualMessageList(senderId,receiverId, pageIndex,pageSize, socket);
 
     } catch (error) {
       console.error('Error in send-message event handler:', error);
