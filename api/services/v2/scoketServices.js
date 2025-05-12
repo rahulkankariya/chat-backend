@@ -63,7 +63,7 @@ const sendMessage = async (senderId,reciverId,chatType,message,mediaType,mediaUr
 
     const rows = await database.newExecuteQuery(storeProcedures.sendChatMessage, params);
       if(rows[0][0].res == 1){
-        if(rows == appConstant.CHAT_TYPE.INDIVIDUAL){
+        if(chatType == appConstant.CHAT_TYPE.INDIVIDUAL){
           return {
             executed: 1,
             data: rows[1][0],
@@ -100,7 +100,6 @@ const individualMessageList = async (senderId, reciverId, pageIndex = 1, pageSiz
     const offset = (pageIndex - 1) * pageSize;
     const params = [senderId, reciverId, offset, pageSize];
     
-    console.log("PArmas==>?",params)
     const rows = await database.newExecuteQuery(storeProcedures.individualMessageList, params);
 
     const messageList = rows?.[0] || [];

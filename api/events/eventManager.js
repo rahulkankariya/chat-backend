@@ -28,27 +28,32 @@ const fetchChatUserList = async (user, pageIndex, pageSize, socket) => {
   }
 };
 
-const sendMessage = async (senderId, reciverId, chatType, message, mediaType, mediaUrl,socket) => {
+// Send message function to handle message sending and updates
+const sendMessage = async (senderId, reciverId, chatType, message, mediaType, mediaUrl, socket, io) => {
   try {
-    // Call userService to send the message
     const result = await userService.sendMessage(senderId, reciverId, chatType, message, mediaType, mediaUrl);
+    if (result) {
 
-    emitEvent(socket,'send-message', { executed: 1, data: result });
-
+      io.to(reciverId).emit('new-message', result);
+      io.emit('new-message', result);
+    } else {
+      throw new Error('Failed to send the message');
+    }
   } catch (error) {
     console.error('Error in sendMessage (Event Manager):', error);
-    socket.emit('send-message', { executed: 0, error });
+    emitEvent(socket, 'send-message', { executed: 0, error: error.message });
   }
 };
 
-const individualMessageList = async (senderId, reciverId, pageIndex,pageSize, socket) => {
+
+// Fetch individual message list (to load initial or new messages)
+const individualMessageList = async (senderId, reciverId, pageIndex, pageSize, socket) => {
   try {
-    console.log("EventManger==?",senderId, reciverId, pageIndex,pageSize)
-    const rows = await userService.individualMessageList(senderId, reciverId, pageIndex,pageSize);
-    console.log("Mesage==>",rows)
+
+    const rows = await userService.individualMessageList(senderId, reciverId, pageIndex, pageSize);
     emitEvent(socket, "individual-message-list", { executed: 1, data: rows });
   } catch (error) {
-    console.error("Error fetching chat user list:", error);
+    console.error("Error fetching individual message list:", error);
     emitEvent(socket, "individual-message-list", { executed: 0, data: [] });
   }
 };

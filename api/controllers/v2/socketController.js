@@ -19,7 +19,7 @@ const socketController = (io, socket) => {
     const senderId = user.id
     try {
       // Call the sendMessage function from the event manager
-      await sendMessage(senderId, reciverId, chatType, message, mediaType, mediaUrl, socket);
+      await sendMessage(senderId, reciverId, chatType, message, mediaType, mediaUrl, socket,io);
 
     } catch (error) {
       console.error('Error in send-message event handler:', error);
