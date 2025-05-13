@@ -3,7 +3,7 @@ import { selectUser } from "../utils/helpers.js";
 export function renderChatList(users) {
   const chatListContainer = document.createElement("div");
   chatListContainer.id = "chatList";
-  console.log("USeres==?",users)
+
   if ((!users || users.length === 0) ) {
     chatListContainer.innerHTML = `<p class="text-gray-500 p-3">No users available</p>`;
   } else {

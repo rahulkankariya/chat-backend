@@ -26,7 +26,7 @@ export function displayMessage(message, side) {
 export function sendMessage() {
   const input = document.getElementById("messageInput");
   const message = input.value.trim();
-  console.log("findUserId==>",selectedUserId)
+
   if (!message) return;
 
   // ✅ Emit message to the server

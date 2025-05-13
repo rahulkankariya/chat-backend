@@ -18,7 +18,7 @@ export function connectSocket(token) {
   });
 
   socket.on("message-list", (data) => {
-    console.log("data==>",data)
+
     displayMessage(data.message, "left");
   });
 

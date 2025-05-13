@@ -19,20 +19,20 @@ const getActiveUsers = async (pageIndex,pageSize,id) => {
                         
                         var recordCount = rows[1][0].recordCount;
 
-                        console.log("recout count==>", recordCount)
+                       
                         if (recordCount <= 0) {
-                            console.log("If")
+                          
                             pageSize = 0;
                             totalPages = 0;
                         }
                         else {
                             if (parseInt(recordCount) % totalPages == 0) {
-                                console.log("If")
+                               
                                 pageSize = Math.floor(parseInt(recordCount) / totalPages);
                                 totalPages = Math.floor((parseInt(recordCount) / totalPages));
                             }
                             else {
-                                console.log("else")
+                                
                                 totalPages = Math.floor((parseInt(recordCount) / totalPages) + 1);
                             }
                         }
@@ -127,20 +127,20 @@ const messageList = (senderId,reciverId,pageIndex,pageSize)=>{
                         
                         var recordCount = rows[1][0].recordCount;
 
-                        console.log("recout count==>", recordCount)
+                       
                         if (recordCount <= 0) {
-                            console.log("If")
+                        
                             pageSize = 0;
                             totalPages = 0;
                         }
                         else {
                             if (parseInt(recordCount) % totalPages == 0) {
-                                console.log("If")
+                               
                                 pageSize = Math.floor(parseInt(recordCount) / totalPages);
                                 totalPages = Math.floor((parseInt(recordCount) / totalPages));
                             }
                             else {
-                                console.log("else")
+                                
                                 totalPages = Math.floor((parseInt(recordCount) / totalPages) + 1);
                             }
                         }

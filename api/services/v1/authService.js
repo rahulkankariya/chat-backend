@@ -36,7 +36,7 @@ module.exports = {
                         }
                 })
             } catch (error) {
-                console.log("err==>",error)
+           
                 reject({ executed: 0, data: {} });
             }
         })
@@ -51,10 +51,10 @@ module.exports = {
                         req.body.email,
                     ],
                     res, function(err,rows){
-                        // console.log("rows==>",rows)
+                       
                         if(rows[0][0].res == 1){ // email  found 
                         let encryptPassword = commonHelper.decryptPassword(rows[1][0].password);
-                        // console.log("Enc==?",encryptPassword)
+                       
                         if(encryptPassword == req.body.password){
                             database.executeQuery(
                                 storeProcudures.uuidUpdate,[
@@ -97,13 +97,13 @@ module.exports = {
         return new Promise((resolve,reject) => {
             try {
              
-                console.log("Req.bod==>",req.decoded)
+             
                 database.executeQuery(
                     storeProcudures.getProfile,[
                         req.decoded.id,
                     ],
                     res, function(err,rows){
-                       console.log("Rows==>",rows)
+                       
                        if(rows[0][0].res == 1){
                         resolve({ executed: 1, data: rows[1][0] });
                        }else{
@@ -130,26 +130,25 @@ module.exports = {
                         pageSize
     
                     ], res, function (err,rows) {
-                        //console.log(rows)
+                      
                         if (rows[0].length!=0) {
                             let totalPages = pageSize;
                             
                             var recordCount = rows[1][0].recordCount;
     
-                            console.log("recout count==>", recordCount)
-                            if (recordCount <= 0) {
-                                console.log("If")
+                         if (recordCount <= 0) {
+                   
                                 pageSize = 0;
                                 totalPages = 0;
                             }
                             else {
                                 if (parseInt(recordCount) % totalPages == 0) {
-                                    console.log("If")
+                              
                                     pageSize = Math.floor(parseInt(recordCount) / totalPages);
                                     totalPages = Math.floor((parseInt(recordCount) / totalPages));
                                 }
                                 else {
-                                    console.log("else")
+                                   
                                     totalPages = Math.floor((parseInt(recordCount) / totalPages) + 1);
                                 }
                             }

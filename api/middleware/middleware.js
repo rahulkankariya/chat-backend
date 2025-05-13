@@ -20,11 +20,11 @@ module.exports = {
         } else {
           
             var token = req.headers['authorization'];
-            console.log("token==?",token)
+        
             if (token) {
                 try {
                     jwt.verify(token, config.JWTKEY, async function (err, data) {
-                        console.log("err==>",err)
+                       
                         if (err) {
                             
                             
@@ -32,7 +32,7 @@ module.exports = {
                             
                         } else {
                             req.decoded = data;
-                            console.log("Req.dec==>",data) 
+                    
                             let userData = await commonHelper.validateToken(req,res);
                            
                             if(userData.executed == 1){
@@ -44,7 +44,7 @@ module.exports = {
                         }
                     })
                 } catch(err){
-                    console.log("err==?",err)
+                   
                     return res.status(401).send({ status: 401, message: 'Invalid TOken' });
                     
                 }
@@ -72,14 +72,14 @@ module.exports = {
                     return next(new Error("Invalid token"));
                 }
     
-                // console.log("Token decoded successfully:", decoded);
+              
     
                 // Validate token in the database
                 let userData = await commonHelper.validateSocketToken(decoded);
-                // console.log("USer",userData)
+                
                 if (userData?.executed == 1) {
                     socket.user = decoded; // Attach user data to socket
-                    // console.log("Socket authentication successful for user:", decoded);
+                    
                     return next(); // Allow connection
                 } else {
                     console.warn("Socket authentication failed: Session expired.");

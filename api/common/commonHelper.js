@@ -22,7 +22,7 @@ module.exports = {
     validateToken:(req,res)=>{
         return new Promise((resolve,reject) => {
             try {
-               console.log("req.dec==>",req.decoded)
+              
                 
                 database.executeQuery(
                     storeProcudures.validateToken,[
@@ -45,7 +45,7 @@ module.exports = {
         return new Promise((resolve,reject) => {
             try {
               
-                    // console.log("validate Token==?",socket)
+                   
                 database.executeQuery(
                     storeProcudures.validateToken,[
                         socket.uniqueId,
@@ -66,7 +66,7 @@ module.exports = {
     onlineOffleUpdate:(id,status)=>{
         return new Promise((resolve,reject) => {
             try {
-              console.log("Online offle call or not",id,status)
+      
                 
                 database.executeQuery(
                     storeProcudures.userOnlineCheck,[
@@ -81,7 +81,7 @@ module.exports = {
                         }
                 })
             } catch (error) {
-                console.log("err==>",error)
+                
                 reject({ executed: 0, data: {} });
             }
         })
@@ -90,7 +90,7 @@ module.exports = {
         return new Promise((resolve,reject) => {
             try {
 
-                console.log("USerListSocket==>",pageIndex,pageSize,id,)
+               
                 database.executeQuery(
                     storeProcudures.userList,[
                        id,

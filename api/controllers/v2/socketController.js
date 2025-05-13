@@ -31,7 +31,7 @@ const socketController = (io, socket) => {
     } = payload;
     const senderId = user.id
     try {
-      console.log("Payload==?",payload)
+  
       // Call the sendMessage function from the event manager
       await individualMessageList(senderId,receiverId, pageIndex,pageSize, socket);
 
