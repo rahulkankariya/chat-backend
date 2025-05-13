@@ -3,7 +3,7 @@ const middleware = require("../middleware/middleware");
 const { handleSocketConnection } = require("../socket/socketHandler");
 
 const initializeSocket = (server) => {
-    const io = new Server(server, { cors: { origin: "*" } });
+    const io = new Server(server, { cors: { origin: "*" }, methods: ["GET", "POST"] });
 
     // Apply authentication middleware
     io.use(middleware.socketToken);
