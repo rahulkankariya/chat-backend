@@ -1,4 +1,4 @@
-const { emitEvent, updateUserStatus, fetchChatUserList,sendMessage,individualMessageList } = require('../../events/eventManager'); // Import the centralized functions
+const { emitEvent, updateUserStatus, fetchChatUserList, sendMessage, individualMessageList } = require('../../events/eventManager'); // Import the centralized functions
 
 const socketController = (io, socket) => {
   const user = socket.user;
@@ -12,34 +12,29 @@ const socketController = (io, socket) => {
   // 📜 Fetch Chat User List
   socket.on("chat-user-list", (pageIndex, pageSize) => fetchChatUserList(user, pageIndex, pageSize, socket));
 
+  // 📤 Send Message
   socket.on('send-message', async (payload) => {
-    const {
-      receiverId, chatType, message, mediaType, mediaUrl
-    } = payload;
-    const senderId = user.id
+    const { receiverId, chatType, message, mediaType, mediaUrl } = payload;
+    const senderId = user.id;
     try {
       // Call the sendMessage function from the event manager
-      await sendMessage(senderId, receiverId, chatType, message, mediaType, mediaUrl, socket,io);
-
-    } catch (error) {
-      console.error('Error in send-message event handler:', error);
-    }
-  });
-  socket.on('individual-message-list',async (payload) => {
-    const {
-      receiverId, pageIndex,pageSize
-    } = payload;
-    const senderId = user.id
-    try {
-  
-      // Call the sendMessage function from the event manager
-      await individualMessageList(senderId,receiverId, pageIndex,pageSize, socket);
-
+      await sendMessage(senderId, receiverId, chatType, message, mediaType, mediaUrl, socket, io);
     } catch (error) {
       console.error('Error in send-message event handler:', error);
     }
   });
 
+  // 📜 Fetch Individual Message List
+  socket.on('individual-message-list', async (payload) => {
+    const { receiverId, pageIndex, pageSize } = payload;
+    const senderId = user.id;
+    try {
+      // Call the individualMessageList function from the event manager
+      await individualMessageList(senderId, receiverId, pageIndex, pageSize, socket);
+    } catch (error) {
+      console.error('Error in individual-message-list event handler:', error);
+    }
+  });
 };
 
 module.exports = socketController;
