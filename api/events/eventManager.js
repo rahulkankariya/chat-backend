@@ -38,18 +38,22 @@ const fetchChatUserList = async (user, pageIndex, pageSize, socket) => {
   try {
     // Fetch list of users (can be from DB or mock data)
     const rows = await socketServices.chatUserList(user.id, pageIndex, pageSize);
-
+    let RediisUsers = [];
+    if(rows.executed = 1){
+      RediisUsers.push(rows?.data?.userList || [])
+    }
+  
     // Check online status for each user in Redis
     const onlineUsers = await redisService.getUserStatus();
-
+    
     // Attach online status to each user in the list
-    const userList = rows.map((row) => ({
-      ...row,
+    const userList = RediisUsers.map((row) => ({
+      ...rows,
       onlines: onlineUsers[row.id] === 'online' ? 1 : 0,
     }));
 
     // Emit the updated chat user list with online/offline status
-    emitEvent(socket, EVENTS.CHAT_USER_LIST, { executed: 1, data: userList });
+    emitEvent(socket, EVENTS.CHAT_USER_LIST, { executed: 1, data: rows });
   } catch (error) {
     console.error("Error fetching chat user list:", error);
     emitEvent(socket, EVENTS.CHAT_USER_LIST, { executed: 0, data: [] });
