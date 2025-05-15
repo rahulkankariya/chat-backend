@@ -2,7 +2,7 @@ const http = require("http");
 const app = require("./app");
 const { initializeSocket } = require("./api/common/socket");
 const Redis = require("ioredis");
-
+const firebase = require('./api/common/firebase')
 // Redis Initialization
 const redis = new Redis(); // Default: 127.0.0.1:6379
 
