@@ -24,10 +24,17 @@ async function sendNotificationToToken(fcmToken, title, body, data = {}) {
     return response;
   } catch (error) {
     console.error("Error sending message:", error);
-    throw error;
+
+    if (error.code === 'messaging/registration-token-not-registered') {
+      console.log(`Token not registered or expired: ${fcmToken}`);
+      // TODO: Remove or invalidate this token in your DB
+      // await removeTokenFromDatabase(fcmToken);
+    }
+    // Optionally rethrow or just swallow error depending on your logic
+    // throw error;
   }
 }
 
 // Example usage
-const token = "cFKv1EQUMDyZSWfA0Ee8yM:APA91bFB1XKefHMfuAn3BLWdPivwh6cZZBbcR7UXdbjS-sU9kWN5UkrsJomMbaaS32O-9KLXxR9oFnf-z5bPp-fBE3XuEPxn7zvLCGYCUa-yzfIgFNdaJq0";
-sendNotificationToToken(token, "Hello!", "This is a test notification");
+const token = "ezCxcfkFWND4P3qY76TYSt:APA91bEpr0tg6aNTjjDUkYk9vmNBjuG5CjG4WrChiiQ1NEle9CtLXDGhR4dlqkZfQZcdfbKc8y93FChc6URh0JrKGaZpxXGiWKbZ6qTYWgERoKrSHezNAy0";
+sendNotificationToToken(token, "Hello!", `This is a test notification${new Date()}`);
